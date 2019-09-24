@@ -18,6 +18,10 @@ class GElement {
         return GElement.FromObject(this.Object.querySelector(selector));
     }
 
+    GetByName(name) {
+        return GElement.FromObject(this.Object.getElementsByName(name));
+    }
+
     GetAll(selector) {
         var arr = this.Object.querySelectorAll(selector == null ? "*" : selector);
         var tmp = [];
@@ -54,13 +58,13 @@ class GElement {
     }
 
     GetChilds() {
-        return Array.from(this.Object.children.forEach(x => arr.push(x)));
+        return Array.from(this.Object.children.forEach(x => arr.push(GElement.FromObject(x))));
     }
 
     GetChildsWhere(filter) {
         let arr = [];
         Array.from(this.Object.children).forEach(x => {
-            if (filter(x)) arr.push(x);
+            if (filter(x)) arr.push(GElement.FromObject(x));
         });
         return arr;
     }
@@ -71,6 +75,10 @@ class GElement {
 
     GetTagName() {
         return this.Object.tagName;
+    }
+
+    GetId() {
+        return this.Object.id;
     }
 
     GetAttribute(key) {
@@ -93,8 +101,16 @@ class GElement {
         this.Object.textContent = val;
     }
 
+    ClearText() {
+        this.Object.textContent = "";
+    }
+
     GetHtml() {
         return this.Object.innerHtml;
+    }
+
+    SetHtml(val) {
+        return this.Object.innerHtml = val;
     }
     
     SetStyle(key,val) {
@@ -123,7 +139,54 @@ class GElement {
     Hide() {
         this.Object.style.cssText += "display: none;";
     }
+
+    SetOpacity(val) {
+        this.Object.style.cssText += "opacity: " + val + ";"; 
+    }
+
+    SetRotation(val) {
+        this.Object.style.cssText += "transform: rotate(" + val + "deg);";
+    }
+
+    SetTransition(propName, delay) {
+        this.Object.style.cssText += "-webkit-transition: " + propName + " " + delay + ";";
+        this.Object.style.cssText += "transition: " + propName + " " + delay + ";";
+    }
+
+    Click() {
+        this.Object.click();
+    }
+
+    Focus() {
+        this.Object.focus();
+    }
+
+    AddEvent(event, callback) {
+        addEventListener(event, callback, false);
+    }
+
+    RemoveEvent(event, callback) {
+        removeEventListener(event, callback, false);
+    }
+
+    Log() {
+        console.log(this.Object);
+    }
 };
+
+// IO class
+
+class GIO {
+    MouseX;
+    MouseY;
+
+    constructor() {
+        window.onmousemove = e => {
+            this.mouseX = e.pageX;
+            this.mouseY = e.pageY;
+        };
+    }
+}
 
 // color class
 class GColorManager {
@@ -148,6 +211,10 @@ class Gogi {
 
     Get(selector) {
         return GElement.FromObject(document.querySelector(selector));
+    }
+
+    GetByName(name) {
+        return GElement.FromObject(document.getElementsByName(name));
     }
 
     GetAll(selector) {
@@ -175,4 +242,5 @@ class Gogi {
 };
 
 var G = new Gogi();
+var GIo = new GIO();
 var GColor = new GColorManager();
