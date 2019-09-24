@@ -5,7 +5,7 @@ Js-library for easy manipulated DOM, elements property and visual styles
 ### Get element by CSS-selector  
     G.Get("#div a");  
 This method as other get-methods returns GElement object. This is special container for HTML-elements.  
-For take HTML-element use Object property like this:  
+For take HTML-element use Object property like this: 
     G.Get(".news").Object;
   
 ### Get all elements by CSS-selector    
