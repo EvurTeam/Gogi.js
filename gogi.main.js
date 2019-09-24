@@ -43,8 +43,34 @@ class GElement {
         return GElement.FromObject(this.Object.children[index]);
     }
 
+    GetEachChilds(order) {
+        let arr = [];
+        for (let index = 0; index < this.Object.children.length; index++) {
+           if ((index + 1) % order == 0) {
+               arr.push(GElement.FromObject(this.Object.children[index]));
+           }
+        }
+        return arr;
+    }
+
+    GetChilds() {
+        return Array.from(this.Object.children.forEach(x => arr.push(x)));
+    }
+
+    GetChildsWhere(filter) {
+        let arr = [];
+        Array.from(this.Object.children).forEach(x => {
+            if (filter(x)) arr.push(x);
+        });
+        return arr;
+    }
+
     GetLastChild() {
         return GElement.FromObject(this.Object.children[this.Object.children.length - 1]);
+    }
+
+    GetTagName() {
+        return this.Object.tagName;
     }
 
     GetAttribute(key) {
@@ -52,7 +78,11 @@ class GElement {
     }
 
     SetAttribute(key, val) {
-        return this.Object.setAttribute(key, val);
+        this.Object.setAttribute(key, val);
+    }
+
+    HasAttribute(key) {
+        return this.Object.hasAttribute(key);
     }
 
     GetText() {
@@ -82,6 +112,17 @@ class GElement {
     HasClass(clName) {
         return this.Object.classList.contains(clName);
     }
+
+    Show(displayType) {
+        if (displayType == null)
+            this.Object.style.cssText += "display: block;";
+        else
+            this.Object.style.cssText += "display: " + displayType + ";";
+    }
+
+    Hide() {
+        this.Object.style.cssText += "display: none;";
+    }
 };
 
 // color class
@@ -102,7 +143,7 @@ class GColorManager {
 // main class
 class Gogi {
     constructor() {
-
+        
     }
 
     Get(selector) {
@@ -114,6 +155,16 @@ class Gogi {
         var tmp = [];
         for (let index = 0; index < arr.length; index++) {
             tmp.push(GElement.FromObject(arr[index]));
+        }
+        return tmp;
+    }
+
+    GetTopElements() {
+        var arr = document.querySelectorAll("body > *");
+        var tmp = [];
+        for (let index = 0; index < arr.length; index++) {
+            if (arr[index].tagName != "SCRIPT")
+                tmp.push(GElement.FromObject(arr[index]));
         }
         return tmp;
     }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="gogi.main.js"></script>
+</head>
+<body>
+    <h1>Site Title</h1>
+    <h2>Sub Title</h2>
+    <div>
+        <div id="lorem">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum accusamus blanditiis incidunt error, voluptate beatae tempore libero obcaecati autem, illum neque cumque commodi perferendis accusantium similique exercitationem facere praesentium. Dolorum!
+        </div>
+        <p>Foo</p>
+        <p>Bar</p>
+        <p>Baz</p>
+    </div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+    </ul>
+    <script>
+        let ul = G.Get("ul");
+        ul.GetChildsWhere((x) => x.textContent != "3").forEach(x => console.log(x.textContent));
+    </script>
+</body>
+</html>
