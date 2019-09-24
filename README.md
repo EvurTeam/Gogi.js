@@ -15,6 +15,10 @@ Js-library for easy manipulated DOM and property
 ### CSS-styles
     G.Get(".title").SetStyle("text-decoration", "underline");  
     G.Get(".box").SetStyle("background-color", "black"); // may use all rules and values for CSS syntax
+    
+### GColor as style helper
+    G.Get(".rnd").SetStyle("background-color", GColor.Random());  
+    G.Get("#row").SetStyle("background-color", GColor.RGB(255,225,0)); // -> #ffff00  
 
 ### Text manipulation  
     G.Get("h1").SetText("Hello World");  
