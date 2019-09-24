@@ -7,6 +7,7 @@ Js-library for easy manipulated DOM and property
   
 ### Get all elements by CSS-selector    
     G.GetAll(".col");  
+    G.GetAll(); // work like "*" selector  
 
 ### Query aggregation  
     G.Get(".text").GetAll("li");  
