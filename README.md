@@ -1,6 +1,13 @@
 # Gogi.js  
 Js-library for easy manipulated DOM, elements property and visual styles
 
+## Philosopy
+### Looks like...
+... merge JQuery and C#.
+#### From JQuery
+Shared targets for scripting, CSS-selectors as main way of find object, main object in ine letter (G as $). 
+#### From C#
+Pascal case, methods may returns only one data type, friendly code style.
 ## Examples  
 ### Get element by CSS-selector  
     G.Get("#div a");  
@@ -8,6 +15,10 @@ This method as other get-methods returns GElement object. This is special contai
 For take HTML-element use Object property like this:  
 
     G.Get(".news").Object;  
+    
+If you needed create GElement for exist HTML-element use static method:  
+
+    GElement.FromObject(someObj);
   
 ### Get all elements by CSS-selector    
     G.GetAll(".col");  
