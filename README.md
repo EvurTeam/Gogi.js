@@ -5,7 +5,7 @@ Js-library for easy manipulated DOM, elements property and visual styles
 ### Looks like...
 ... merge JQuery and C#.
 #### From JQuery
-Shared targets for scripting, CSS-selectors as main way of find object, main object in ine letter (G as $). 
+Shared targets for scripting, CSS-selectors as main way of find object, main object in one letter (G as $). 
 #### From C#
 Pascal case, methods may returns only one data type, friendly code style.
 ## Examples  
@@ -66,3 +66,5 @@ All methods (without GetChildsCount) returns GElements like Get\GetAll etc
     body.GetChildAt(2); // item by index 2  
     body.GetEachChilds(3); // items with index like 3 6 9 12 15 ...  
     body.GetChildsWhere((x) => x.tagName != "DIV"); // filter get only not div tags. May use any user filters (predicates)  
+    
+    
