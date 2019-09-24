@@ -12,6 +12,9 @@ For take HTML-element use Object property like this:
 ### Get all elements by CSS-selector    
     G.GetAll(".col");  
     G.GetAll(); // work like "*" selector  
+    
+### Get element by name
+    G.GetByName("login");
 
 ### Query aggregation  
     G.Get(".text").GetAll("li");  
@@ -42,6 +45,8 @@ For take HTML-element use Object property like this:
     let flag = body.HasAttribute("contenteditable"); // -> true  
 
 ### Get element childrens  
+All methods (without GetChildsCount) returns GElements like Get\GetAll etc  
+
     let body = G.Get("body");  
     body.GetChildsCount(); // get count of children elements  
     body.GetChilds(); // all elemtents without script  
