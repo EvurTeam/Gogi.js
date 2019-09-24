@@ -2,7 +2,7 @@
 Js-library for easy manipulated DOM and property
 
 ## Examples  
-1) Get element by CSS-selector  
+Get element by CSS-selector  
 G.Get("#div a");  
 
 ### Get all elements by CSS-selector    
