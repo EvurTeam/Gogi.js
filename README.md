@@ -21,9 +21,9 @@ let isEditable = G.Get("body").GetAttribute("contenteditable"); // -> true
 
 ### Get element childrens  
 let body = G.Get("body");  
-body.GetChilds(); // all elemtents without <script>  
+body.GetChilds(); // all elemtents without script  
 body.GetFirstChild();  
 body.GetLastChild();  
 body.GetChildAt(2);  
 body.GetEachChilds(3); // items with index like 3 6 9 12 15 ...  
-body.GetChildsWhere((x) => x.tagName != "DIV"); // filter get only not <div> tags  
+body.GetChildsWhere((x) => x.tagName != "DIV"); // filter get only not div tags  
