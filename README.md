@@ -18,6 +18,7 @@ let txt = G.Get("h1").GetText(); // -> Hello World
 ### Attributes manipulation  
 G.Get("body").SetAttribute("contenteditable", "true");  
 let isEditable = G.Get("body").GetAttribute("contenteditable"); // -> true  
+let flag G.Get("body").HasAttribute("contenteditable"); // -> true  
 
 ### Get element childrens  
 let body = G.Get("body");  
