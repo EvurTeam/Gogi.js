@@ -19,7 +19,7 @@ class GElement {
     }
 
     GetAll(selector) {
-        var arr = this.Object.querySelectorAll(selector);
+        var arr = this.Object.querySelectorAll(selector == null ? "*" : selector);
         var tmp = [];
         for (let index = 0; index < arr.length; index++) {
             tmp.push(GElement.FromObject(arr[index]));
@@ -151,7 +151,7 @@ class Gogi {
     }
 
     GetAll(selector) {
-        var arr = document.querySelectorAll(selector);
+        var arr = document.querySelectorAll(selector == null ? "*" : selector);
         var tmp = [];
         for (let index = 0; index < arr.length; index++) {
             tmp.push(GElement.FromObject(arr[index]));

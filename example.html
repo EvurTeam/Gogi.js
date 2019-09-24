@@ -28,8 +28,7 @@
         <li>7</li>
     </ul>
     <script>
-        let ul = G.Get("ul");
-        ul.GetChildsWhere((x) => x.textContent != "3").forEach(x => console.log(x.textContent));
+        G.GetAll().forEach(x => console.log(x));
     </script>
 </body>
 </html>
