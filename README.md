@@ -54,7 +54,7 @@ If you needed create GElement for exist HTML-element use static method:
       lbl.RemoveClass("hidden");  
     
     // this method repeat last write but in one method!
-    G.Get(".label").AddClassRemove("hidden");
+    G.Get(".label").AddOrRemoveClass("hidden");
 
 ### Attributes manipulation  
     let body = G.Get("body");  

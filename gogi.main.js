@@ -196,6 +196,21 @@ class GElement {
         this.Object.style.cssText += "transition: " + propName + " " + delay + ";";
     }
 
+    // etc
+
+    GetValue() {
+        if (this.Object.hasAttribute("value")) {
+            return this.Object.value;
+        }
+        return null;
+    }
+
+    SetValue(newVal) {
+        if (this.Object.hasAttribute("value")) {
+            this.Object.value = newVal;
+        }
+    }
+
     // control
 
     Click() {
