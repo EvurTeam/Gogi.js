@@ -14,6 +14,8 @@ class GElement {
         return tmp;
     }
 
+    // selectors etc
+
     Get(selector) {
         return GElement.FromObject(this.Object.querySelector(selector));
     }
@@ -31,16 +33,20 @@ class GElement {
         return tmp;
     }
 
+    // parent
+
     GetParent() {
         return GElement.FromObject(this.Object.parentElement);
     }
+
+    // children
 
     GetChildCount() {
         return GElement.FromObject(this.Object.children.length);
     }
 
     GetFirstChild() {
-        return GElement.FromObject(this.Object.children[0]);
+        return GElement.FromObject(this.Object.firstChild);
     }
 
     GetChildAt(index) {
@@ -70,16 +76,16 @@ class GElement {
     }
 
     GetLastChild() {
-        return GElement.FromObject(this.Object.children[this.Object.children.length - 1]);
+        return GElement.FromObject(this.Object.lastChild);
     }
+
+    // etc
 
     GetTagName() {
         return this.Object.tagName;
     }
 
-    GetId() {
-        return this.Object.id;
-    }
+    // attribute
 
     GetAttribute(key) {
         return this.Object.getAttribute(key);
@@ -93,6 +99,8 @@ class GElement {
         return this.Object.hasAttribute(key);
     }
 
+    // textContent
+
     GetText() {
         return this.Object.textContent;
     }
@@ -105,6 +113,8 @@ class GElement {
         this.Object.textContent = "";
     }
 
+    // innerHtml
+
     GetHtml() {
         return this.Object.innerHtml;
     }
@@ -112,10 +122,8 @@ class GElement {
     SetHtml(val) {
         return this.Object.innerHtml = val;
     }
-    
-    SetStyle(key,val) {
-        this.Object.style.cssText += key + ":" + val + ";";
-    }
+
+    // class
 
     AddClass(clName) {
         this.Object.classList.add(clName);
@@ -129,15 +137,30 @@ class GElement {
         return this.Object.classList.contains(clName);
     }
 
+    AddOrRemoveClass(clName) {
+        if (this.Object.classList.contains(clName))
+            this.Object.classList.remove(clName);
+        else
+            this.Object.classList.add(clName);
+    }
+
+    // id
+
+    GetId() {
+        return this.Object.id;
+    }
+
+    // visual
+
     Show(displayType) {
         if (displayType == null)
-            this.Object.style.cssText += "display: block;";
+            this.Object.style.cssText += "display:block;";
         else
-            this.Object.style.cssText += "display: " + displayType + ";";
+            this.Object.style.cssText += "display:" + displayType + ";";
     }
 
     Hide() {
-        this.Object.style.cssText += "display: none;";
+        this.Object.style.cssText += "display:none;";
     }
 
     SetOpacity(val) {
@@ -148,10 +171,32 @@ class GElement {
         this.Object.style.cssText += "transform: rotate(" + val + "deg);";
     }
 
+    SetStyle(key,val) {
+        this.Object.style.cssText += key + ":" + val + ";";
+    }
+
+    SetStyleImportant(key,val) {
+        this.Object.style.cssText += key + ":" + val + " !important;";
+    }
+
+    SetSize(w,h) {
+        if (!w.endsWith("px")) w += "px";
+        if (!h.endsWith("px")) h += "px";
+        this.Object.style.cssText += "width:" + w + ";" + "hight:" + h + ";";
+    }
+
+    SetLocation(x,y) {
+        if (!x.endsWith("px")) x += "px";
+        if (!y.endsWith("px")) y += "px";
+        this.Object.style.cssText += "left:" + x + ";" + "top:" + y + ";";
+    }
+
     SetTransition(propName, delay) {
-        this.Object.style.cssText += "-webkit-transition: " + propName + " " + delay + ";";
+        this.Object.style.cssText += "-webkit-transition:" + propName + " " + delay + ";";
         this.Object.style.cssText += "transition: " + propName + " " + delay + ";";
     }
+
+    // control
 
     Click() {
         this.Object.click();
@@ -168,6 +213,8 @@ class GElement {
     RemoveEvent(event, callback) {
         removeEventListener(event, callback, false);
     }
+
+    // debug
 
     Log() {
         console.log(this.Object);
@@ -209,6 +256,8 @@ class Gogi {
         
     }
 
+    // fast selectors
+
     Get(selector) {
         return GElement.FromObject(document.querySelector(selector));
     }
@@ -235,6 +284,14 @@ class Gogi {
         }
         return tmp;
     }
+
+    // 
+
+    Navigate(url) {
+        window.location.href = url;
+    }
+
+    // other
 
     Random(min,max) {
         return Math.floor(Math.random() * max) + min;
