@@ -8,7 +8,8 @@ Js-library for easy manipulated DOM, elements property and visual styles
 Shared targets for scripting, CSS-selectors as main way of find object, main object in one letter (G as $). 
 #### From C#
 Pascal case, methods may returns only one data type, friendly code style.
-## Examples  
+
+## Simple examples  
 ### Get element by CSS-selector  
     G.Get("#div a");  
 This method as other get-methods returns GElement object. This is special container for HTML-elements.  
@@ -34,6 +35,9 @@ If you needed create GElement for exist HTML-element use static method:
     G.Get(".title").SetStyle("text-decoration", "underline");  
     G.Get(".box").SetStyle("background-color", "black"); // may use all rules and values for CSS syntax
     
+### Fast important rules
+    G.GetAll("div").SetStyleImportant("display", "flex"); // rule with !important
+    
 ### GColor as style helper
     G.Get(".rnd").SetStyle("background-color", GColor.Random());  
     G.Get("#row").SetStyle("background-color", GColor.RGB(255,225,0)); // -> #ffff00  
@@ -48,6 +52,9 @@ If you needed create GElement for exist HTML-element use static method:
       lbl.AddClass("hidden");  
     else  
       lbl.RemoveClass("hidden");  
+    
+    // this method repeat last write but in one method!
+    G.Get(".label").AddClassRemove("hidden");
 
 ### Attributes manipulation  
     let body = G.Get("body");  
@@ -67,4 +74,4 @@ All methods (without GetChildsCount) returns GElements like Get\GetAll etc
     body.GetEachChilds(3); // items with index like 3 6 9 12 15 ...  
     body.GetChildsWhere((x) => x.tagName != "DIV"); // filter get only not div tags. May use any user filters (predicates)  
     
-    
+### 
