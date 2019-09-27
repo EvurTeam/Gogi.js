@@ -9,9 +9,19 @@ class GElement {
     }
 
     static FromObject(obj) {
-        var tmp = new GElement();
+        let tmp = new GElement();
         tmp.Object = obj;
         return tmp;
+    }
+
+    static FromObjects(objArr) {
+        let buff = [];
+        for (let obj in objArr) {
+            let tmp = new GElement();
+            tmp.Object = obj;
+            buff.push(tmp);
+        }
+        return buff;
     }
 
     // selectors etc
@@ -21,25 +31,42 @@ class GElement {
     }
 
     GetByName(name) {
-        return GElement.FromObject(this.Object.getElementsByName(name));
+        return GElement.FromObject(this.Object.getElementsByName(name)[0]);
+    }
+
+    GetAllByName(name) {
+        let arr = [];
+        this.Object.getElementsByName(name).forEach(x => {
+            arr.push(GElement.FromObject(x));
+        });
+        return arr;
     }
 
     GetAll(selector) {
-        var arr = this.Object.querySelectorAll(selector == null ? "*" : selector);
-        var tmp = [];
+        let arr = this.Object.querySelectorAll(selector == null ? "*" : selector);
+        let tmp = [];
         for (let index = 0; index < arr.length; index++) {
             tmp.push(GElement.FromObject(arr[index]));
         }
         return tmp;
     }
 
-    // parent
+    // parent and child methods
+
+    GetIndexByParent() {
+        let parent = this.Object.parentElement;
+        let index = 0;
+        for (let child in parent.children) {
+            if (child === this.Object) 
+                return index;
+            index++;
+        }
+        return -1;
+    }
 
     GetParent() {
         return GElement.FromObject(this.Object.parentElement);
     }
-
-    // children
 
     GetChildCount() {
         return GElement.FromObject(this.Object.children.length);
@@ -150,6 +177,10 @@ class GElement {
         return this.Object.id;
     }
 
+    SetId(id) {
+        this.Object.id = id;
+    }
+
     // visual
 
     Show(displayType) {
@@ -221,12 +252,14 @@ class GElement {
         this.Object.focus();
     }
 
+
+    // TODO: need fix
     AddEvent(event, callback) {
-        addEventListener(event, callback, false);
+        this.Object.addEventListener(event, callback, false);
     }
 
     RemoveEvent(event, callback) {
-        removeEventListener(event, callback, false);
+        this.Object.removeEventListener(event, callback, false);
     }
 
     // debug
@@ -239,14 +272,40 @@ class GElement {
 // IO class
 
 class GIO {
-    MouseX;
-    MouseY;
+    constructor() {
+        
+    }
+
+    GetCursosLocation() {
+        return new {
+            x: e.pageX,
+            y: e.pageY
+        };
+    }
+}
+
+// math class
+class GMathLib {
+    DEG2RAD = Math.PI / 180;
 
     constructor() {
-        window.onmousemove = e => {
-            this.mouseX = e.pageX;
-            this.mouseY = e.pageY;
-        };
+        
+    }
+
+    DistanceBetween(x1,y1,x2,y2) {
+        let dx = x1 - x2;
+        let dy = y1 - y2;
+        return dx*dx+dy*dy;
+    }
+
+    PolarProjection(x,y,dist,angle) {
+        let x2 = x + dist * Math.cos(angle * this.DEG2RAD);
+        let y2 = y + dist * Math.sin(angle * this.DEG2RAD);
+        return new { x: x2, y: y2 };
+    }
+
+    Random(min,max) {
+        return Math.floor(Math.random() * max) + min;
     }
 }
 
@@ -267,6 +326,20 @@ class GColorManager {
 
 // main class
 class Gogi {
+    Wnidow = new {
+        ScrollTo(x,y) {
+            window.scrollTo(x,y);
+        },
+
+        ScrollBy(x,y) {
+            window.scrollBy(x,y);
+        },
+
+        Navigate(url) {
+            window.location.href = url;
+        }
+    };
+
     constructor() {
         
     }
@@ -277,42 +350,40 @@ class Gogi {
         return GElement.FromObject(document.querySelector(selector));
     }
 
-    GetByName(name) {
-        return GElement.FromObject(document.getElementsByName(name));
-    }
-
     GetAll(selector) {
-        var arr = document.querySelectorAll(selector == null ? "*" : selector);
-        var tmp = [];
+        let arr = document.querySelectorAll(selector == null ? "*" : selector);
+        let tmp = [];
         for (let index = 0; index < arr.length; index++) {
             tmp.push(GElement.FromObject(arr[index]));
         }
         return tmp;
     }
 
+    GetByName(name) {
+        return GElement.FromObject(document.getElementsByName(name)[0]);
+    }
+   
+    GetAllByName(name) {
+        let arr = [];
+        document.getElementsByName(name).forEach(x => {
+            arr.push(GElement.FromObject(x));
+        });
+        return arr;
+    }
+
     GetTopElements() {
-        var arr = document.querySelectorAll("body > *");
-        var tmp = [];
+        let arr = document.querySelectorAll("body > *");
+        let tmp = [];
         for (let index = 0; index < arr.length; index++) {
             if (arr[index].tagName != "SCRIPT")
                 tmp.push(GElement.FromObject(arr[index]));
         }
         return tmp;
     }
-
-    // 
-
-    Navigate(url) {
-        window.location.href = url;
-    }
-
-    // other
-
-    Random(min,max) {
-        return Math.floor(Math.random() * max) + min;
-    }
 };
 
+// init global variables
 var G = new Gogi();
 var GIo = new GIO();
+var GMath = new GMathLib;
 var GColor = new GColorManager();
